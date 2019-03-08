@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+	<title>MyNote</title>
+	<style >
+		body{
+			background-color: #f4f4f4;
+			line-height: 1.5em;
+			font-family: Tahoma;
+ 			
+		}		
+		#main{
+			border:3px solid #000;
+			width: 450px;
+			padding: 10px;
+			margin:50px auto;
+			background-color:#FFD700;
+			border-radius: 15px;
+		}
+		#container{
+			width:415px;
+			margin:50px  auto;
+			border:2px solid #000;
+		}
+		#note{
+			font-family:castellar;
+			width:400px;
+			border:6px solid #212;
+			margin:1px;
+		}
+		header,footer{
+			width: 450px;
+			border:2px solid #444;
+			border-radius: 15px;
+			text-align: center;
+			background-color:#791; 
+			margin:50px auto;
+
+
+		}
+		#div-clear{
+			background-color:#89CFF2;
+			border-radius: 15px;
+		}
+
+	</style>
+	<script type="text/javascript">
+		function getNote(){
+			if (localStorage.getItem('note')){
+				var x =localStorage.getItem('note');
+			}
+			else
+				var x = 'Edit this note to save in  localStorage'
+			
+			document.getElementById('note').innerHTML = x;
+
+		}
+
+		function saveNote(id){
+			var y = document.getElementById('note').innerHTML
+			localStorage.setItem('note',y);
+		}
+		function clearNote(){
+			clear:localStorage.clear();
+			return false;
+		}
+	</script>
+</head>
+
+<body >
+
+<div id= main>	
+	<header>
+		<h2>MyNote</h2>
+	</header>
+	<section id="container">
+		<div id="note" contenteditable="true" onkeyup="saveNote(this,id)"></div>
+
+	</section>
+
+	<footer>
+		<div  id ="div-clear">
+		<a href="" onclick="clearNote()" class ="clear">Clear Note</a>	
+		</div>
+		<p>MyNote &copy; 2019</p>
+
+	</footer>
+
+	<script type="text/javascript">
+		
+		getNote();
+	</script>
+</div>
+</body>
