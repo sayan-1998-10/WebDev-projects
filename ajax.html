@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ajax</title>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<style type="text/css">
+		img{
+			width:100%;
+			margin-left: 0.65rem;
+			margin-top :  0.65rem;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+	<form id="userForm">
+		<div class="form-group" >
+			<label><h2>Github Username:</h2></label>
+			<input type="text" class="form-control" name="Name" id="username" >
+		</div>
+	</form>
+	<div id="profile"> 	</div>
+	</div>
+	<script >
+		function getProfile(e){
+			e.preventDefault();
+			var username =  document.getElementById("username").value;
+			var xhttp = new XMLHttpRequest();
+			xhttp.open('GET','https://api.github.com/users/'+username,true);
+			xhttp.onreadystatechange = function(){
+				if(xhttp.readyState == 4 && xhttp.status == 200){
+					var user = JSON.parse(xhttp.responseText); 
+				document.getElementById('profile').innerHTML = `<div class="card" style=" width:100%;">
+							  <div class="card-header">
+							    ${user.name}
+							  </div>
+								<div class="row">
+									<div class="col-lg-4"><img src="${user.avatar_url}">
+									</div>
+										<div class="col-lg-8">
+											<span class="badge badge-success">Public Repos:${user.public_repos}</span>
+											<span class="badge badge-danger">Followers:${user.followers}</span>
+											<span class="badge badge-info">Following:${user.following}</span>
+
+											<ul class = "list-group">
+												<li class="list-group-item"><strong>Bio-->${user.bio}</strong></li>
+												<li class="list-group-item"><strong>Website-->${user.blog}</strong></li>
+												<li class="list-group-item"><strong>Location-->${user.location}</strong></li>
+												<li class="list-group-item"><strong>Repository url-->${user.repos_url}</strong></li>
+											</ul>
+											<br>
+											<a href ="${user.html_url}" target="_blank" class="btn btn-primary">Profile</a>
+										</div>
+								</div>
+							</div>`;
+				}
+			}
+			
+			xhttp.send();
+
+		}
+		// getProfile();
+		document.getElementById('userForm').addEventListener('submit',getProfile,false);
+	</script>
+</body>
+</html>
+										
